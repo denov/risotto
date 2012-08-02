@@ -1,11 +1,11 @@
 package com.devbliss.risotto;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RisottoRisFile {
+public class RisottoItem {
 
     private String title;
     private String[] additionalTitles;
@@ -18,14 +18,32 @@ public class RisottoRisFile {
     private String[] keywords;
     private Map<String, List<String>> rawData = new HashMap<String, List<String>>();
 
-    public List<String> getRawFieldData(RisottoRISFieldDefinition field) {
-        List<String> fieldValues = rawData.get(field.getFieldName());
+    public List<String> getRawFieldData(String fieldName) {
+        List<String> fieldValues = rawData.get(fieldName);
 
         if (fieldValues == null) {
-            return Arrays.asList(); // return an empty list
+            return new ArrayList<String>(); // return an empty list
         }
 
         return fieldValues;
+    }
+
+    public Map<String, List<String>> getRawFieldData() {
+        return rawData;
+    }
+
+    public void addRawFieldData(String fieldName, String value) {
+        List<String> fieldValues = rawData.get(fieldName);
+
+        if (fieldValues == null) {
+            fieldValues = new ArrayList<String>();
+        }
+
+        if (value != null && !"".equals(value)) {
+            fieldValues.add(value);
+        }
+
+        rawData.put(fieldName, fieldValues);
     }
 
     public String getTitle() {
@@ -99,9 +117,4 @@ public class RisottoRisFile {
     protected void setKeywords(String[] keywords) {
         this.keywords = keywords;
     }
-
-    protected void setRawData(Map<String, List<String>> rawData) {
-        this.rawData = rawData;
-    }
-
 }
