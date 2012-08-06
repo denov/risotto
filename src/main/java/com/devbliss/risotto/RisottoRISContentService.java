@@ -1,45 +1,80 @@
 package com.devbliss.risotto;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+
 public class RisottoRISContentService {
 
     static final String EOF = "EOF";
 
     int currentLine;
-    String[] lines;
+    String nextLine;
 
-    public RisottoRISContentService(String content) {
+    BufferedReader reader;
+
+    public RisottoRISContentService(BufferedReader reader) {
         this.currentLine = 0;
-        this.lines = content.split("\\r?\\n");
+        this.reader = reader;
+        this.nextLine = null;
     }
 
-    public boolean hasNextLine() {
-        return currentLine < lines.length;
+    /**
+     * Removes the BOM Relict that can result from using UTF-8 due to a java bug.
+     * http://bugs.sun.com/view_bug.do?bug_id=4508058
+     *
+     * @param risContent
+     * @return
+     */
+    private String removeBOMRelict(String risContent) {
+        if (((byte) risContent.charAt(0)) == -1) {
+            return risContent.substring(1);
+        }
+
+        return risContent;
     }
 
-    public String getNextLine() {
+    public boolean hasNextLine() throws IOException {
+        if (nextLine != null) {
+            return true;
+        }
+
+        nextLine = reader.readLine();
+
+        if (currentLine == 0) {
+            nextLine = removeBOMRelict(nextLine);
+        }
+
+        if (nextLine == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public String getNextLine() throws IOException {
         if (hasNextLine()) {
-            String line = lines[currentLine];
             currentLine++;
-            return line;
+            String currentLine = nextLine;
+            nextLine = null;
+            return currentLine;
         }
 
         return EOF;
     }
 
-    public String peekNextLine() {
+    public String peekNextLine() throws IOException {
         if (hasNextLine()) {
-            return lines[currentLine];
+            return nextLine;
         }
 
         return EOF;
     }
 
-    public void reset() {
-        currentLine = 0;
-    }
-
-    public void skipNextLine() {
-        this.currentLine++;
+    public void skipNextLine() throws IOException {
+        if (hasNextLine()) {
+            this.nextLine = null;
+            this.currentLine++;
+        }
     }
 
 }

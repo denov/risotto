@@ -2,10 +2,10 @@ package de.devbliss.paulparser;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 import com.devbliss.risotto.RisottoItem;
@@ -24,10 +24,10 @@ public class RisottoParserTest {
     @Test
     public void testParsing() throws Exception {
 
-        String file =
-                FileUtils.readFileToString(new File(TESTDATA_DIRECTORY + "example.ris"), "UTF-8");
         // make sure the common sense extraction works:
-        List<RisottoItem> items = RisottoParser.parseRISContent(file);
+        List<RisottoItem> items =
+                RisottoParser.parseRISContent(new InputStreamReader(new FileInputStream(
+                        TESTDATA_DIRECTORY + "example.ris"), "UTF-8"));
 
         assertEquals(items.size(), 3);
         assertEquals(items.get(0).getRawFieldData().size(), 11);
@@ -126,10 +126,10 @@ public class RisottoParserTest {
 
     @Test
     public void testBrokenParsing() throws Exception {
-        String file =
-                FileUtils.readFileToString(new File(TESTDATA_DIRECTORY + "broken.ris"), "UTF-8");
 
-        List<RisottoItem> items = RisottoParser.parseRISContent(file);
+        List<RisottoItem> items =
+                RisottoParser.parseRISContent(new InputStreamReader(new FileInputStream(
+                        TESTDATA_DIRECTORY + "broken.ris"), "UTF-8"));
 
         assertEquals(2, items.size());
         assertEquals(3, items.get(0).getRawFieldData().size());

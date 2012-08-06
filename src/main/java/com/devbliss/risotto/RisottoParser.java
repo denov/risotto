@@ -1,5 +1,8 @@
 package com.devbliss.risotto;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -8,56 +11,36 @@ import org.apache.commons.lang3.StringUtils;
 
 public class RisottoParser {
 
-    private static final String PATTERN_ITEMSTART = "^TY  -.*";
-    private static final String PATTERN_ITEMEND = "^ER  -.*";
-    private static final String PATTERN_ITEM = "^[A-Z][A-Z0-9]  -.*";
-    private static final String PATTERN_ITEMEXTENSION = "^      .+";
+    private static final Pattern PATTERN_ITEMSTART = Pattern.compile("^TY  -.*");
+    private static final Pattern PATTERN_ITEMEND = Pattern.compile("^ER  -.*");
+    private static final Pattern PATTERN_ITEM = Pattern.compile("^[A-Z][A-Z0-9]  -.*");
+    private static final Pattern PATTERN_ITEMEXTENSION = Pattern.compile("^      .+");
 
     /**
      * Method to parse the contents of a RIS File into a List of RisottoItems.
-     * 
+     *
      * @param htmlContent
      * @return
      */
-    public static List<RisottoItem> parseRISContent(String risContent) {
-        risContent = removeBOMRelict(risContent);
-        RisottoRISContentService contentService = new RisottoRISContentService(risContent);
+    public static List<RisottoItem> parseRISContent(Reader risReader) throws IOException {
+        BufferedReader in = new BufferedReader(risReader);
+        RisottoRISContentService contentService = new RisottoRISContentService(in);
         List<RisottoItem> items = new ArrayList<RisottoItem>();
         while (contentService.hasNextLine()) {
-            try {
-                RisottoItem myItem = parseNextItem(contentService);
-                if (myItem != null) {
-                    myItem.normalize();
-                    items.add(myItem);
-                }
-            } catch (RisottoItemNotValidException exception) {
-                System.out.println("The next item couldn't be parsed.");
+            RisottoItem myItem = parseNextItem(contentService);
+            if (myItem != null) {
+                myItem.normalize();
+                items.add(myItem);
             }
         }
 
         return items;
     }
 
-    /**
-     * Removes the BOM Relict that can result from using UTF-8 due to a java bug.
-     * http://bugs.sun.com/view_bug.do?bug_id=4508058
-     * 
-     * @param risContent
-     * @return
-     */
-    private static String removeBOMRelict(String risContent) {
-        if (((byte) risContent.charAt(0)) == -1) {
-            return risContent.substring(1);
-        }
-
-        return risContent;
-    }
-
-    private static RisottoItem parseNextItem(RisottoRISContentService content)
-            throws RisottoItemNotValidException {
+    private static RisottoItem parseNextItem(RisottoRISContentService content) throws IOException {
 
         if (!content.hasNextLine())
-            throw new RisottoItemNotValidException("No more lines found!");
+            return null;
 
         RisottoItem myItem = new RisottoItem();
 
@@ -69,7 +52,8 @@ public class RisottoParser {
         return myItem;
     }
 
-    private static void getItemsUntilItemEnd(RisottoRISContentService content, RisottoItem myItem) {
+    private static void getItemsUntilItemEnd(RisottoRISContentService content, RisottoItem myItem)
+            throws IOException {
         while (content.hasNextLine()) {
             String currentLine = content.peekNextLine();
             if (currentLine.trim().length() < 4) {
@@ -77,10 +61,10 @@ public class RisottoParser {
                 continue;
             }
 
-            if (Pattern.matches(PATTERN_ITEMEND, StringUtils.stripStart(currentLine, null))) {
+            if (PATTERN_ITEMEND.matcher(StringUtils.stripStart(currentLine, null)).matches()) {
                 content.skipNextLine();
                 break;
-            } else if (Pattern.matches(PATTERN_ITEM, StringUtils.stripStart(currentLine, null))) {
+            } else if (PATTERN_ITEM.matcher(StringUtils.stripStart(currentLine, null)).matches()) {
                 extractDataFromField(content, myItem);
                 continue;
             }
@@ -89,7 +73,8 @@ public class RisottoParser {
         }
     }
 
-    private static void getNextItemStart(RisottoRISContentService content, RisottoItem myItem) {
+    private static void getNextItemStart(RisottoRISContentService content, RisottoItem myItem)
+            throws IOException {
         while (content.hasNextLine()) {
             String currentLine = content.peekNextLine();
             if (currentLine.trim().length() < 4) {
@@ -97,7 +82,7 @@ public class RisottoParser {
                 continue;
             }
 
-            if (Pattern.matches(PATTERN_ITEMSTART, StringUtils.stripStart(currentLine, null))) {
+            if (PATTERN_ITEMSTART.matcher(StringUtils.stripStart(currentLine, null)).matches()) {
                 extractDataFromField(content, myItem);
                 break;
             }
@@ -106,7 +91,8 @@ public class RisottoParser {
         }
     }
 
-    private static void extractDataFromField(RisottoRISContentService content, RisottoItem myItem) {
+    private static void extractDataFromField(RisottoRISContentService content, RisottoItem myItem)
+            throws IOException {
         // read line
         String fieldName = getFieldName(content);
         String fieldContent = getContent(content);
@@ -115,7 +101,7 @@ public class RisottoParser {
 
     }
 
-    private static String getContent(RisottoRISContentService content) {
+    private static String getContent(RisottoRISContentService content) throws IOException {
         // get content
         String line = StringUtils.stripStart(content.getNextLine(), null);
         if (line.length() < 7) {
@@ -129,7 +115,7 @@ public class RisottoParser {
             String nextLine = content.peekNextLine();
 
             // if yes, getLine and peek another line
-            if (Pattern.matches(PATTERN_ITEMEXTENSION, nextLine)) {
+            if (PATTERN_ITEMEXTENSION.matcher(nextLine).matches()) {
                 fieldContent = fieldContent + nextLine.substring(6);
                 content.skipNextLine();
             } else {
@@ -140,7 +126,7 @@ public class RisottoParser {
         return fieldContent;
     }
 
-    private static String getFieldName(RisottoRISContentService content) {
+    private static String getFieldName(RisottoRISContentService content) throws IOException {
         // get FieldName
         String line = StringUtils.stripStart(content.peekNextLine(), null);
         return line.substring(0, 2);
