@@ -27,6 +27,7 @@ public class RisottoParser {
             try {
                 RisottoItem myItem = parseNextItem(contentService);
                 if (myItem != null) {
+                    myItem.normalize();
                     items.add(myItem);
                 }
             } catch (RisottoItemNotValidException exception) {

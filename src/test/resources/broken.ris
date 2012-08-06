@@ -1,37 +1,28 @@
 ﻿
-
-
 T  - BOOK
-AU  - P. Sherman
-AU  - S. Mueller
-TI  - Handbibliothek der Fortran Programmierung
-  - Enthalten sind die vorzüglichsten Beispiele kunstvoller Fortran Programmierung.
-AB  - Java Programmierer wurden in einer sechs-wöchigen Studie zur Fortran-Programmierung gezwungen und die dabei entstehenden 
-      Kunstwerke aufwändig restauriert, interpretiert und analysiert.
+AU  - defect record without start, this shouldn't get read at all
+TI  - Buch
+  - defekt
+AB  - description
 PY  - 1977
- sdaCY  - London
-PB  s - Fortran rocks!
+ sdaCY  - defekt
+PB  s - defekt
 DO  - DOI:10xxxxxxxx
 ER  -
 
 TY  - BOOK
- sdadAU  - M. Bankman
-AU  - Heidi van der Saar
-TI  - Esdrlang for Dummies
-T2  asd- Erlang for those who can't code.
-PBd   - For Dummiesd
-saDO  - DOI:20xxxxxd saxxx
+ sdadAU  - intact start and end with
+AU  - single defective entries, should be read somehow
+TI  - Defective for Dummies
+T2  asd- broken
+PBd   - For Dummies
+saDO  - DOI:20xxxxxd
 ER  -
- asd asdasdasdasd
+
+
+
+
+
 TY  - BOOK
-AU  - Y. Mom
-AU  - K. Fong
-TI  - Kurzübersicht Innere Medizin der Spitzmaus
-PY  - 1914
-CY     - Las Vegas
-PB  - Spitzmausverlag
+PB  - no endtag, EOF instead, should work
 E  -  
-
-s
-
-sd
