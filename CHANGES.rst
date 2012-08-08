@@ -1,3 +1,7 @@
+develop
+=======
+
+
 0.2
 ===
 - added functionality to search for more than one field at once
