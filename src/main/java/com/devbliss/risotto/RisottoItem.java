@@ -17,6 +17,8 @@ public class RisottoItem {
     private List<String> subsidiaryAuthors;
     private String doi;
     private String date;
+    private String year;
+    private String journal;
     private List<String> keywords;
     private String abstractDescription;
     private Map<String, List<String>> rawData = new HashMap<String, List<String>>();
@@ -110,13 +112,52 @@ public class RisottoItem {
         this.title = title;
     }
 
+    public String getJournal() {
+        return journal;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
     /**
-     * Syncs the attributes to the
+     * Get the first found field value from an array of fields.
+     * 
+     * e.g. if you search a title you can supply "TI", "J2", "T1", "T2" and "T3" to get the first
+     * one in that order with a value.
+     * 
+     * @param tags seperated list or array of tags
+     * 
+     * @return field value if any was found or null
+     */
+    public String getFirstRawFieldDataFromManyFields(String... tags) {
+        for (int i = 0; i < tags.length; i++) {
+            List<String> values = getRawFieldData(tags[i]);
+
+            if (null != values && values.size() > 0) {
+                return values.get(0);
+            }
+
+        }
+        return null;
+    }
+
+    /**
+     * Syncs the attributes to the tag map, which contains the raw tag data of the item.
      */
     public void normalize() {
-        this.title = getSingleFirstRawFieldData(RisottoRISFieldDefinitions.FIELD_TITLE);
         this.typeOfItem =
                 getSingleFirstRawFieldData(RisottoRISFieldDefinitions.FIELD_TYPE_OF_REFERENCE);
+
+        this.title =
+                getFirstRawFieldDataFromManyFields(RisottoRISFieldDefinitions.FIELD_PRIMARY_TITLE,
+                        RisottoRISFieldDefinitions.FIELD_TITLE);
+
+        this.journal =
+                getFirstRawFieldDataFromManyFields(RisottoRISFieldDefinitions.FIELD_JOURNAL,
+                        RisottoRISFieldDefinitions.FIELD_ALTERNATE_TITLE,
+                        RisottoRISFieldDefinitions.FIELD_SECONDARY_TITLE);
+
         this.secondaryTitles = getRawFieldData(RisottoRISFieldDefinitions.FIELD_SECONDARY_TITLE);
         this.tertiaryTitles = getRawFieldData(RisottoRISFieldDefinitions.FIELD_TERTIARY_TITLE);
 
@@ -133,5 +174,7 @@ public class RisottoItem {
         this.date = getSingleFirstRawFieldData(RisottoRISFieldDefinitions.FIELD_DATE);
 
         this.keywords = getRawFieldData(RisottoRISFieldDefinitions.FIELD_KEYWORDS);
+
+        this.year = getSingleFirstRawFieldData(RisottoRISFieldDefinitions.FIELD_YEAR);
     }
 }

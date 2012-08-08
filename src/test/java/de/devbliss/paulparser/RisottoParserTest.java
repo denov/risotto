@@ -21,12 +21,18 @@ public class RisottoParserTest {
 
     public String TESTDATA_DIRECTORY = "src/test/resources/";
 
+    public RisottoParser parser;
+
+    public RisottoParserTest() {
+        parser = new RisottoParser();
+    }
+
     @Test
     public void testParsing() throws Exception {
 
         // make sure the common sense extraction works:
         List<RisottoItem> items =
-                RisottoParser.parseRISContent(new InputStreamReader(new FileInputStream(
+                parser.parseRISContent(new InputStreamReader(new FileInputStream(
                         TESTDATA_DIRECTORY + "example.ris"), "UTF-8"));
 
         assertEquals(items.size(), 3);
@@ -58,7 +64,7 @@ public class RisottoParserTest {
         assertEquals("S. Mueller", items.get(0).getRawFieldData("AU").get(1));
         assertEquals("Handbibliothek der Fortran Programmierung", items.get(0).getTitle());
         assertEquals("Handbibliothek der Fortran Programmierung", items.get(0)
-                .getRawFieldData("TI").get(0));
+                .getRawFieldData("T1").get(0));
         assertEquals(
                 "Enthalten sind die vorzüglichsten Beispiele kunstvoller Fortran Programmierung.",
                 items.get(0).getRawFieldData("T2").get(0));
@@ -128,7 +134,7 @@ public class RisottoParserTest {
     public void testBrokenParsing() throws Exception {
 
         List<RisottoItem> items =
-                RisottoParser.parseRISContent(new InputStreamReader(new FileInputStream(
+                parser.parseRISContent(new InputStreamReader(new FileInputStream(
                         TESTDATA_DIRECTORY + "broken.ris"), "UTF-8"));
 
         assertEquals(2, items.size());

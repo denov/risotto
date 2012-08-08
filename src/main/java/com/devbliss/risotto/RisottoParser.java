@@ -22,7 +22,7 @@ public class RisottoParser {
      * @param htmlContent
      * @return
      */
-    public static List<RisottoItem> parseRISContent(Reader risReader) throws IOException {
+    public List<RisottoItem> parseRISContent(Reader risReader) throws IOException {
         BufferedReader in = new BufferedReader(risReader);
         RisottoRISContentService contentService = new RisottoRISContentService(in);
         List<RisottoItem> items = new ArrayList<RisottoItem>();
@@ -37,7 +37,7 @@ public class RisottoParser {
         return items;
     }
 
-    private static RisottoItem parseNextItem(RisottoRISContentService content) throws IOException {
+    private RisottoItem parseNextItem(RisottoRISContentService content) throws IOException {
 
         if (!content.hasNextLine())
             return null;
@@ -52,7 +52,7 @@ public class RisottoParser {
         return myItem;
     }
 
-    private static void getItemsUntilItemEnd(RisottoRISContentService content, RisottoItem myItem)
+    private void getItemsUntilItemEnd(RisottoRISContentService content, RisottoItem myItem)
             throws IOException {
         while (content.hasNextLine()) {
             String currentLine = content.peekNextLine();
@@ -73,7 +73,7 @@ public class RisottoParser {
         }
     }
 
-    private static void getNextItemStart(RisottoRISContentService content, RisottoItem myItem)
+    private void getNextItemStart(RisottoRISContentService content, RisottoItem myItem)
             throws IOException {
         while (content.hasNextLine()) {
             String currentLine = content.peekNextLine();
@@ -91,7 +91,7 @@ public class RisottoParser {
         }
     }
 
-    private static void extractDataFromField(RisottoRISContentService content, RisottoItem myItem)
+    private void extractDataFromField(RisottoRISContentService content, RisottoItem myItem)
             throws IOException {
         // read line
         String fieldName = getFieldName(content);
@@ -101,7 +101,7 @@ public class RisottoParser {
 
     }
 
-    private static String getContent(RisottoRISContentService content) throws IOException {
+    private String getContent(RisottoRISContentService content) throws IOException {
         // get content
         String line = StringUtils.stripStart(content.getNextLine(), null);
         if (line.length() < 7) {
@@ -126,7 +126,7 @@ public class RisottoParser {
         return fieldContent;
     }
 
-    private static String getFieldName(RisottoRISContentService content) throws IOException {
+    private String getFieldName(RisottoRISContentService content) throws IOException {
         // get FieldName
         String line = StringUtils.stripStart(content.peekNextLine(), null);
         return line.substring(0, 2);

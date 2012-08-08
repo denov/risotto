@@ -53,14 +53,16 @@ public class RisottoRISFieldDefinitions {
     static public final String FIELD_ISBN_ISSN = "SN";
     static public final String FIELD_START_PAGE = "SP";
     static public final String FIELD_SHORT_TITLE = "ST";
+    static public final String FIELD_TITLE = "TI";
+    static public final String FIELD_PRIMARY_TITLE = "T1";
     static public final String FIELD_SECONDARY_TITLE = "T2";
     static public final String FIELD_TERTIARY_TITLE = "T3";
     static public final String FIELD_TRANSLATED_AUTHOR = "TA";
-    static public final String FIELD_TITLE = "TI";
     static public final String FIELD_TRANSLATED_TITLE = "TT";
     static public final String FIELD_URL = "UR";
     static public final String FIELD_VOLUME = "VL";
     static public final String FIELD_ACCESS_DATE = "Y2";
+    static public final String FIELD_JOURNAL = "JO";
     static public final String FIELD_END_OF_REFERENCE = "ER";
 }
 
