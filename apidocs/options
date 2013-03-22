@@ -1,0 +1,24 @@
+-classpath
+'/Users/mreinwarth/projects/risotto/target/classes:/Users/mreinwarth/.m2/repository/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/Users/mreinwarth/projects/risotto/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2012-2013 <a href="http://devbliss.com">devbliss GmbH</a>. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/mreinwarth/projects/risotto/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'RISotto 0.3-SNAPSHOT API'
+-linkoffline
+'http://download.oracle.com/javase/6/docs/api' '/Users/mreinwarth/projects/risotto/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'RISotto 0.3-SNAPSHOT API'
