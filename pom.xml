@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -111,7 +113,7 @@
         </developer>
         <developer>
             <name>Bastien Mary</name>
-            <email>bastien.mary@devbliss.de</email>
+            <email>bastien.mary@devbliss.com</email>
             <url>http://www.devbliss.com</url>
             <roles>
                 <role>Author</role>
@@ -120,7 +122,7 @@
         </developer>
         <developer>
             <name>Marco Reinwarth</name>
-            <email>marco.reinwarth@devbliss.de</email>
+            <email>marco.reinwarth@devbliss.com</email>
             <url>http://www.devbliss.com</url>
             <roles>
                 <role>Author</role>
@@ -129,7 +131,7 @@
         </developer>
         <developer>
             <name>James Roper</name>
-            <email>james.roper@devbliss.de</email>
+            <email>james.roper@devbliss.com</email>
             <url>http://www.devbliss.com</url>
             <roles>
                 <role>Author</role>
@@ -138,7 +140,7 @@
         </developer>
         <developer>
             <name>Henning Schuetz</name>
-            <email>henning.schuetz@devbliss.de</email>
+            <email>henning.schuetz@devbliss.com</email>
             <url>http://www.devbliss.com</url>
             <roles>
                 <role>Author</role>
@@ -147,7 +149,7 @@
         </developer>
         <developer>
             <name>Raphael Andre Bauer</name>
-            <email>raphael.bauer@devbliss.de</email>
+            <email>raphael.bauer@devbliss.com</email>
             <url>http://www.devbliss.com</url>
             <roles>
                 <role>Author</role>

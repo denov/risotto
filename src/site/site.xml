@@ -4,19 +4,19 @@
          name="RISotto">
     <bannerLeft>
         <name>RISotto: Ris file parser</name>
-        <href>http://www.devbliss.com</href>
+        <href>http://github.com/devbliss/risotto</href>
     </bannerLeft>
+    <bannerRight>
+        <src>./images/devbliss.png</src>
+        <href>http://devbliss.com</href>
+    </bannerRight>
     <body>
         <menu name="Overview">
             <item name="About" href="index.html"/>
             <item name="Readme" href="readme.html"/>
             <item name="Changelog" href="changes.html"/>
         </menu>
-        <menu name="Project documentation">
-            <item name="Maven Info" href="project-info.html"/>
-            <item name="JavaDocs" href="Apidocs.html"/>
-            <item name="Test JavaDocs" href="Testapidocs.html"/>
-        </menu>
+        <menu ref="reports" />
     </body>
     <skin>
         <groupId>org.apache.maven.skins</groupId>
