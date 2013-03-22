@@ -12,20 +12,56 @@
     <version>0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-
-
     <name>RISotto</name>
     <description>Parses RIS files.</description>
     <url>https://github.com/devbliss/risotto</url>
     <organization>
-        <name>DevBliss</name>
+        <name>devbliss GmbH</name>
         <url>http://devbliss.com</url>
     </organization>
     <inceptionYear>2012</inceptionYear>
 
-    <dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.4</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>2.8</version>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.ju-n.maven.doxia</groupId>
+                        <artifactId>doxia-module-markdown</artifactId>
+                        <version>1.0.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+    
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-       	<dependency>
+    <dependencies>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.10</version>
@@ -40,87 +76,66 @@
         </dependency>
 
         <dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.1</version>
-		</dependency>
-
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+        </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <!-- disabled doc generation for 0.1 <plugin> <groupId>com.github.github</groupId> <artifactId>site-maven-plugin</artifactId>
-                <version>0.5</version> <executions> <execution> <goals> <goal>site</goal> </goals> <phase>site-deploy</phase>
-                <configuration> <message>not used...</message> <path>${project.version}</path> <merge>true</merge> </configuration>
-                </execution> </executions> </plugin> <plugin> <artifactId>maven-compiler-plugin</artifactId> <version>2.5</version>
-                <configuration> <source>1.6</source> <target>1.6</target> </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId> <version>3.1</version> <configuration> <reportPlugins> <plugin>
-                <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.4</version> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.8</version> </plugin> </reportPlugins> <skipDeploy>true</skipDeploy> </configuration> <dependencies>
-                <dependency> <groupId>net.ju-n.maven.doxia</groupId> <artifactId>doxia-module-markdown</artifactId> <version>1.0.0</version>
-                </dependency> </dependencies> </plugin> -->
-
-
-        </plugins>
-
-
-    </build>
-
     <developers>
-		<developer>
+        <developer>
             <name>Marcel Bankmann</name>
             <email>marcel.bankmann@devbliss.com</email>
             <url>http://www.devbliss.com</url>
             <roles>
                 <role>Author</role>
             </roles>
-            <organization>DevBliss</organization>
+            <organization>devbliss GmbH</organization>
         </developer>
         <developer>
             <name>Bastien Mary</name>
             <email>bastien.mary@devbliss.de</email>
-            <url>http://www.devbliss.de</url>
+            <url>http://www.devbliss.com</url>
             <roles>
                 <role>Author</role>
             </roles>
-            <organization>DevBliss</organization>
+            <organization>devbliss GmbH</organization>
         </developer>
         <developer>
             <name>Marco Reinwarth</name>
             <email>marco.reinwarth@devbliss.de</email>
-            <url>http://www.devbliss.de</url>
+            <url>http://www.devbliss.com</url>
             <roles>
                 <role>Author</role>
             </roles>
-            <organization>DevBliss</organization>
+            <organization>devbliss GmbH</organization>
         </developer>
         <developer>
             <name>James Roper</name>
             <email>james.roper@devbliss.de</email>
-            <url>http://www.devbliss.de</url>
+            <url>http://www.devbliss.com</url>
             <roles>
                 <role>Author</role>
             </roles>
-            <organization>DevBliss</organization>
+            <organization>devbliss GmbH</organization>
         </developer>
         <developer>
             <name>Henning Schuetz</name>
             <email>henning.schuetz@devbliss.de</email>
-            <url>http://www.devbliss.de</url>
+            <url>http://www.devbliss.com</url>
             <roles>
                 <role>Author</role>
             </roles>
-            <organization>DevBliss</organization>
+            <organization>devbliss GmbH</organization>
         </developer>
         <developer>
             <name>Raphael Andre Bauer</name>
             <email>raphael.bauer@devbliss.de</email>
-            <url>http://www.devbliss.de</url>
+            <url>http://www.devbliss.com</url>
             <roles>
                 <role>Author</role>
             </roles>
-            <organization>DevBliss</organization>
+            <organization>devbliss GmbH</organization>
         </developer>
     </developers>
 
