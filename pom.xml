@@ -39,6 +39,7 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.0</version>
                 <configuration>
+                    <encoding>UTF-8</encoding>
                     <reportPlugins>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
