@@ -39,7 +39,6 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.0</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
                     <reportPlugins>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
@@ -65,6 +64,7 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+                    <encoding>UTF-8</encoding>
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
